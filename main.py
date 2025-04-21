@@ -22,7 +22,7 @@ password = quote_plus("Kunal12345%")
 uri = f"mongodb+srv://{username}:{password}@cluster0.2r5vfqe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 client = MongoClient(uri)
-database = client["TEST_DATABASE"]
+database = client["TEST_COLLECTION"]
 collection = database["TEST_COLLECTION"]
 
 # Optional: Test insert (you can comment this out later)
