@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import List
 from pymongo import MongoClient
 from bson import json_util
+from fastapi.middleware.cors import CORSMiddleware
 import json # to convert bson file to json file
 
 # from pymongo import ServerApi
@@ -26,7 +27,7 @@ app = FastAPI() # creating an instance of FastAPI (creating the app)
 # Allowing requests from all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Allows requests from all origins
+    allow_origins=["*"],  # Allows requests from all origins
     allow_credentials=True,
     allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allows all headers
