@@ -1,7 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from pydantic import BaseModel
 from typing import List
 from pymongo import MongoClient
+from bson import json_util
+import json # to convert bson file to json file
+
 # from pymongo import ServerApi
 from urllib.parse import quote_plus # just to make the url correct
 
@@ -19,14 +22,22 @@ collection.insert_one({"name": "Kunal", "age": 23}) # inserting a document into 
 
 app = FastAPI() # creating an instance of FastAPI (creating the app)
 
+
 @app.get("/") # defining the root endpoint ("/") of the API
 def read_root():
-    # this function will return a welcome message when the root endpoint is called
-    return {list(collection.find())} # send all collection in the form of list means our whole mongodb data
+    diary = {}
+    for i, document in enumerate(collection.find()):
+        document['_id'] = str(document['_id'])  # Convert ObjectId to string
+        diary[f"doc_{i+1}"] = document
+    return {"data": diary}
+@app.post("/insert")
+async def insert(request: Request):
+    try:
+        body = await request.json()  # or body = await request.json()
+        collection.insert_one(body)
+        return {"message": "Document inserted successfully", "data": body}
+    except Exception as e:
+        print("Error occurred:", str(e))
+        return {"error": str(e)}
 
-# @app.post("/insert")
-# async def insert(request : Request):
-#     body = await request.json()
-#     collection.insert_one(body) # inserting the document into the collection
-#     return {"message": "Document inserted successfully :{body}"} 
     
