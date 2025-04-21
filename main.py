@@ -23,6 +23,16 @@ collection.insert_one({"name": "Kunal", "age": 23}) # inserting a document into 
 app = FastAPI() # creating an instance of FastAPI (creating the app)
 
 
+# Allowing requests from all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
+
+
 @app.get("/") # defining the root endpoint ("/") of the API
 def read_root():
     diary = {}
