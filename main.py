@@ -26,7 +26,7 @@ database = client["TEST_DATABASE"]
 collection = database["TEST_COLLECTION"]
 
 # Optional: Test insert (you can comment this out later)
-collection.insert_one({"name": "Kunal", "age": 23})
+# collection.insert_one({"name": "Kunal", "age": 23})
 
 @app.get("/")
 def read_root():
