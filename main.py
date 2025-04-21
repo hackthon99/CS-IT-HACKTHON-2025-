@@ -40,8 +40,10 @@ def read_root():
 async def insert(request: Request):
     try:
         body = await request.json()
-        collection.insert_one(body)
-        return {"message": "Document inserted successfully", "data": body}
+        result = collection.insert_one(body)
+        return {
+            "message": "Inserted successfully",
+            "inserted_id": str(result.inserted_id)  # Convert ObjectId to string
+        }
     except Exception as e:
-        print("Error occurred:", str(e))
         return {"error": str(e)}
