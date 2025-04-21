@@ -26,7 +26,7 @@ app = FastAPI() # creating an instance of FastAPI (creating the app)
 # Allowing requests from all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows requests from all origins
+    allow_origins=["http://localhost:5173"],  # Allows requests from all origins
     allow_credentials=True,
     allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allows all headers
